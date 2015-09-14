@@ -5,7 +5,7 @@ This is a mockup of the Code Service that will be used to authenticate your IoT 
 Here are the steps you need to take to get started:  
 - Go to the ```Auth``` tab on the ClearBlade console and create a new user. You will give this user's auth token back to the devices if they exist in the collection you created earlier.
 - Next go to the ```Code``` tab and create a new Code Service by clicking the ```+New``` button and give your Code Service a name. 
-- Copy and paste the code from the deviceAuthentication.js file included in this repository under ```IoT Device Management/Device Authentication/deviceAuthentication.js```
+- Copy and paste the code from the deviceAuthentication.js file included in this repository under ```IoT Device Management/Device Authentication/deviceAuthentication.js``` into your Code Service.
 - Replace ```var deviceInfoCollectionID = "COLLECTION_ID";``` with the collection ID of the collection you created earlier.
 - Replace the email and password in initOptions with the email and password of the user that you created.
 ``` 
