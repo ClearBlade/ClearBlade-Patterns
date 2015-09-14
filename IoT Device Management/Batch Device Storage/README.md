@@ -35,7 +35,7 @@ var initOptions = {
 ### Construct the JSON Object for your device
 - Construct a JSON object in the following format:
 ```
-{"deviceID":"DeviceId"}
+{"deviceID":"yourDeviceId"}
 ```
 - At the bottom of the Code Service that you created, click the ```Test Parameters``` link and click the ```+``` icon to add a new parameter.
 - Enter the parameter name as **devices** and copy and paste the JSON Object in the parameter value field. 
