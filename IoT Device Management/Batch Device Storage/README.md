@@ -38,7 +38,7 @@ var initOptions = {
 {"deviceID":"yourDeviceId"}
 ```
 - At the bottom of the Code Service that you created, click the ```Test Parameters``` link and click the ```+``` icon to add a new parameter.
-- Enter the parameter name as **devices** and copy and paste the JSON Object in the parameter value field. 
+- Enter the parameter name as **device** and copy and paste the JSON Object in the parameter value field. 
 - Hit **Save and Test** to execute the Code Service.
 - If all the device is saved successfully, you will get a popup saying 'Added Device' and you are all set!
 
