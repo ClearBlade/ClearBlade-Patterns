@@ -1,6 +1,6 @@
 # IoT Device Authentication using the ClearBlade Platform
 
-This is a mockup of the Code Service that will be used to authenticate your IoT devices with the ClearBlade Platform. **This requires that you have a collection set up on the ClearBlade Platform. This collection must contain device IDs and keys associated with all of your devices. The collection must also have necessary permissions set.**
+This is a mockup of the Code Service that will be used to authenticate your IoT devices with the ClearBlade Platform. **This requires that you have a collection set up on the ClearBlade Platform. This collection must contain device IDs and keys associated with all of your devices. The collection must also have necessary permissions set.** If you have not created a collection, please follow the instructions given at https://github.com/ClearBlade/ClearBlade-Patterns/tree/master/IoT%20Device%20Management/Batch%20Device%20Storage 
 
 Here are the steps you need to take to get started:  
 - Go to the ```Auth``` tab on the ClearBlade console and create a new user. You will give this user's auth token back to the devices if they exist in the collection you created earlier.
