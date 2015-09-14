@@ -1,5 +1,6 @@
 var devicesJsonObject = req.params.device;
 
+var deviceKey = "";
 var devicesCollectionID = "COLLECTION_ID";
 
 function generateDeviceKey() {
@@ -19,7 +20,7 @@ function addDevices() {
 		}
 	}
 
-	var deviceKey = generateDeviceKey();
+	deviceKey = generateDeviceKey();
 
 	var collection = ClearBlade.Collection(devicesCollectionID);
 
@@ -36,7 +37,11 @@ function initClearBlade() {
 			resp.error(result);
 		} else {
 			addDevices();
-			resp.success("Added Device");
+			if (deviceKey !== "") {
+				resp.success(deviceKey);
+			} else {
+				resp.error("Could not add device");
+			}
 		}
 	}
 
