@@ -9,7 +9,7 @@ Device discovery on the ClearBlade Platform is done over MQTT, which executes a 
 - GetAllDevices: Gets all the devices in the collection
 
 The message payload sent by the devices needs to be in the following format:
-```{"requestType": "AddDeviceState", "deviceState":"online", "isDiscoverable":true, "location":"1244.4141, 23535.252523"}```
+```{"requestType": "AddDeviceState", "deviceState":"online", "isDiscoverable":true, "location":"1244.4141, 23535.252523", "itemId":"your_item_id"}```
 
 requestType can have the following values:
 - "AddDeviceState"
@@ -25,6 +25,7 @@ deviceState can have the following values:
 - "idle"
 
 isDiscoverable can be true or false and location will contain comma separated latitude and longitude of the device. 
+The itemID key is used for update, get and remove operations.
 
 
 ### Create a Collection
