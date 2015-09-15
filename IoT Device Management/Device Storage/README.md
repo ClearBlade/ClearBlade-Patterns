@@ -1,6 +1,6 @@
 # IoT Device Storage in the ClearBlade Platform
 
-This lets you store devices (JSON Object containing device authentication parameters) to a collection on the ClearBlade Platform. The user needs to create a Collection, create a Code Service and then execute that Code Service by providing a JSON object of the device ID that are to be stored in the collection.  
+This lets you store devices (JSON Object containing device authentication parameters) to a collection on the ClearBlade Platform. The user needs to create a Collection, create a Code Service and then execute that Code Service by providing a JSON object of the device ID of the device that is to be stored in the collection.  
 
 ### Create a Collection  
 - First, you will need to create a ```Collection``` to store the device credentials.
@@ -41,5 +41,6 @@ var initOptions = {
 - Enter the parameter name as **device** and copy and paste the JSON Object in the parameter value field. 
 - Hit **Save and Test** to execute the Code Service.
 - If the device is saved successfully, the newly generated device key will be returned and you are all set!
+- Alternatively, you can execute the Code Service while programming your device.
 
 
