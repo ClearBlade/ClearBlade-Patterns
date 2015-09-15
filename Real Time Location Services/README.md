@@ -1,6 +1,6 @@
 # Real Time Location using the ClearBlade Platform
 
-With the help of MQTT, REST Services and Code Services with Triggers on the ClearBlade Platform, users can implement efficient and reliable real time systems with very little work.
+With the help of MQTT, REST Services and Code Services with Triggers on the ClearBlade Platform, users can implement efficient and reliable real time systems with very little work. ClearBlade gives users a way to implement Geolocation and Geocoding APIs on the platform itself so that devices don't have to do the heavy work.
 
 ## realTimeLocation-MQTT.js
 
@@ -21,6 +21,7 @@ Users can use MQTT to send the location (latitude and longitude) of their device
 - This Code Service will get executed every time there is a publish event from your device to the topic you specified in the trigger
 - ```var longitude``` and ```var latitude``` will contain the longitude and latitude sent by your device respectively.
 - The user can then apply business logic on the location coordinates within the Code Service itself.
+- The Code Service can be used to call Google's Geocoding, Geolocation, DistanceMatrix APIs if required.
 
 
 ## realTimeLocation-Data.js
@@ -45,3 +46,4 @@ Code Services can also have a Data Trigger which will execute the Code Service w
 - This Code Service will get executed every time there is an item created event from your device to the collection you specified in the trigger
 - ```var longitude``` and ```var latitude``` will contain the longitude and latitude sent by your device respectively.
 - The user can then apply business logic on the location coordinates within the Code Service itself.
+- The Code Service can be used to call Google's Geocoding, Geolocation, DistanceMatrix APIs if required.
