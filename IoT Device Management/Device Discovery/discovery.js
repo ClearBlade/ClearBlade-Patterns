@@ -73,7 +73,7 @@ function removeDevice() {
 }
 
 function getAllDevices() {
-	ar fetchCallback = function(err, result) {
+	var fetchCallback = function(err, result) {
 		if (err) {
 			resp.success(result);
 		} else {
