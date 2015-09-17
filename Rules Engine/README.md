@@ -6,7 +6,8 @@ Write your own business rules in the ClearBlade platform.
 4.  Define a trigger on the service  EX: Message received from a topic "/iot/sensors"
 5.  Write your rule
 
-```function mySensorRule(req, resp) {
+```javascript
+function mySensorRule(req, resp) {
   var sensorRule = new Rule();
   
   var sensorRuleResult = function(valid, message){
@@ -20,5 +21,6 @@ Write your own business rules in the ClearBlade platform.
       .contains(["asdfw23", "23lis0"], req.params.sensorid)
       .equals(req.params.status, 1);
   sensorRule.validateRule(callback);
-}```
+}
+```
 
