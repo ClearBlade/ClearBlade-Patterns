@@ -24,3 +24,5 @@ In order to test authentication for the tags, we have a simple HTTP server writt
 - cd into the codeservice directory and do a ```go install```
 - cd back to the hid-test directory and do a ```go build request_interceptor.go```
 - Start the HTTP server by doing ```sudo ./request_interceptor```
+
+If everything is set up correctly, you should see the HTTP requests sent out by the tags on your HTTP server. You can verify the authentication status in the Collection on the ClearBlade Platform.
