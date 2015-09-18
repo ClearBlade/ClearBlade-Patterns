@@ -22,5 +22,5 @@ In order to test authentication for the tags, we have a simple HTTP server writt
 - You will also need to change the name of the Code Service in the Go program to the one you just created.
 - Currently this Go program listens to all request on port 80 that have ```/demo?``` format. You can change it to wherever your tag points to.
 - cd into the codeservice directory and do a ```go install```
-- cd back to the GoCode directory and do a ```go build request_interceptor.go```
+- cd back to the hid-test directory and do a ```go build request_interceptor.go```
 - Start the HTTP server by doing ```sudo ./request_interceptor```
