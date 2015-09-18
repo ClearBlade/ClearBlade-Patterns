@@ -12,7 +12,7 @@ The ClearBlade Platform can be used to authenticate HID Global's NFC Tags. When 
 - Copy and paste the code from VerifyTags.js included in this folder.
 - Replace the collection ID, HID username and password and ClearBlade username and password in the code with your credentials.
 
-In order to test authentication for the tags, we have a simple HTTP server which listens to port 80, intercepts the GET request made by the tag, takes the tagID and tac parameters from the GET request and executes a Code Service that you just created.
+In order to test authentication for the tags, we have a simple HTTP server written in Go lang which listens to port 80, intercepts the GET request made by the tag, takes the tagID and tac parameters from the GET request and executes a Code Service that you just created.
 
 - In your Go workspace create the following folder structure: ```/yourGoWorkspace/src/github.com/clearblade/``` and cd into it.
 - First of all, you will need to download the ClearBlade Go SDK. Do a ```git clone https://github.com/ClearBlade/Go-SDK.git``` and ```git clone https://github.com/ClearBlade/mqttclient.git``` and ```git clone https://github.com/ClearBlade/mqtt_parsing.git```
