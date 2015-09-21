@@ -4,14 +4,14 @@ function SendMail(req, resp){
         var options = {
             auth: {
                 user: "api",
-                pass : "key-342745b4ea1c0e38a469274cc687581f"
+                pass : "your_key"
             },
-            uri : "https://api.mailgun.net/v3/sandboxaefcf6628e5f4e65b5ccd5b1362b4ee7.mailgun.org/messages",
+            uri : "https://api.mailgun.net/v3/your_domain/messages",
             qs: {
                 "from": "Mailgun Sandbox <mailgun@sandboxaefcf6628e5f4e65b5ccd5b1362b4ee7.mailgun.org>",
-                "to": "Aaron <aallsbrook@clearblade.com>",
+                "to": "foo <xyz@foo.com>",
                 "subject": "Test message using mailgun",
-                "text": "Hi Aaron. This is a test message from code service using mailgun http api!"
+                "text": "Hi xyz. This is a test message from code service using mailgun http api!"
             },
             strictSSL: false
         };
@@ -35,8 +35,8 @@ function SendMail(req, resp){
         var initOptions = {
             systemKey: req.systemKey,
             systemSecret: req.systemSecret,
-            email: "rohan@clearblade.com",
-            password: "rohanbendre",
+            email: "your_user",
+            password: "your_password",
             callback: initCallback
         };
         ClearBlade.init(initOptions);
