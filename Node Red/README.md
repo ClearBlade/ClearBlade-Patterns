@@ -3,6 +3,11 @@
 ### Install and start Node Red
 - Follow instructions to install and startup Node Red from http://nodered.org  
 
+### Get a Auth Token
+- ClearBlade MQTT requires an auth token as username for the MQTT Broker and a system key as the password.
+- Generate an auth token by making a REST call using CURL or any other tools.
+- Instructions can be found at http://docs.clearblade.com/v/2/static/restapi/index.html#!/user/Anonymous_Authentication_post_2  
+
 ### Create MQTT publish and subscribe nodes
 - Drag and drop MQTT publish and subscribe nodes and edit the connection information in either of the nodes.  
 ![](images/1.png)  
