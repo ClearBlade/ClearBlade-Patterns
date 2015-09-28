@@ -10,5 +10,6 @@ function FBLibraryTest(req, resp) {
 	    resp.success(response);
 	});
 }
+```
 
 More information can be found at https://github.com/Thuzi/facebook-node-sdk
