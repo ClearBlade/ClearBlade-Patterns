@@ -10,9 +10,6 @@ public class MQTTClientJava {
 		
 		initClearBlade();
 		subscribe();
-		//publish();
-		//message.disconnectMQTTService();
-
 	}
 	
 	private static void initClearBlade() {
@@ -53,7 +50,7 @@ public class MQTTClientJava {
 	
 	private static void subscribe() {
 		
-		/*MessageCallback messageCallback = new MessageCallback() {
+		MessageCallback messageCallback = new MessageCallback() {
 			
 			@Override
 			public void done(String topic, byte[] message){
@@ -68,16 +65,11 @@ public class MQTTClientJava {
 				String message = exception.getLocalizedMessage();
 				System.out.println("CB Subscribe Exception: " + message);
 			}
-		};*/
+		};
 		
 		String topic = "Austin Weather";
 		
-		message.subscribe(topic);
-	}
-	
-	private static void publish() {
-		
-		message.publish("test", "this is a test123");
+		message.subscribe(topic, messageCallback);
 	}
 
 }
