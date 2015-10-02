@@ -9,8 +9,8 @@ function sendBulkUsage() {
     var options = {
             uri: "https://partners.gotransverse.com/t/s/r/1.28/usageEvents/bulk",
             auth: {
-                "user": "cbapi",
-                "pass": "san28ket!"
+                "user": "username",
+                "pass": "password"
             },
             isSoap: true,
             headers: {
