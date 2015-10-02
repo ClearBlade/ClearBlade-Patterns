@@ -12,22 +12,22 @@ function createTRACTAccount(req, resp){
     
     var productEID = getEID("Product", req.params.tier);
     if (productEID === -1) {
-        resp.error("Could not find product/tier EID");
+        resp.error({err: true, cause: "Could not find product/tier EID"});
     }
     
     var billCycleEID = getEID("Bill Cycle", "");
     if (billCycleEID === -1) {
-        resp.error("Could not find bill cycle EID");
+        resp.error({err: true, cause: "Could not find bill cycle EID"});
     }
     
     var billingAccountCategoryEID = getEID("Billing Account Category", "");
     if (billingAccountCategoryEID === -1) {
-        resp.error("Could not find billing account category EID");
+        resp.error({err: true, cause: "Could not find billing account category EID"});
     }
     
     var serviceResourceCategoryEID = getEID("Service Resource Category", "");
     if (serviceResourceCategoryEID === -1) {
-        resp.error("Could not find service resource category EID");
+        resp.error({err: true, cause: "Could not find service resource category EID"});
     }
     
     var postParams = {
@@ -47,12 +47,18 @@ function createTRACTAccount(req, resp){
         "service": serviceResourceCategoryEID
     };
     
-    var result = createAccount(postParams); // Create a TRACT account
+    var result = createAccount(postParams);
     if (typeof JSON.parse(result)[0].Attr.eid === "undefined") {
-        resp.error("Failed to create TRACT user");
+        resp.error({err: true, cause: "Failed to create TRACT user"});
     } else {
-        var output = registerDeveloper(req); // Create a developer account in ClearBlade
+        var output = registerDeveloper(req);
         var devtoken = JSON.parse(output).dev_token;
-        resp.success("Account Created");
+        var didStore = storeUser(req);
+        
+        if (didStore) {
+            resp.success({err: false, cause: "https://p1.clearblade.com/#/"});
+        } else {
+            resp.success({err: true, cause: "Could not store developer to a Collection"});
+        }
     }
 }
