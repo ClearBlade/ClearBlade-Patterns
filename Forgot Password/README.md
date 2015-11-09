@@ -8,5 +8,5 @@
 - Reset token will be mailed to user which can be used to change password
 
 - The sample code is given in ForgotPassword.js
-- ClearBlade and Mailer need to be imported
+- ClearBlade and Mailer libraries need to be imported
 - Edit the credentials as indicated in sample code
