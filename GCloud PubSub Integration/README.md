@@ -9,7 +9,8 @@ To integrate Google Cloud's PubSub with ClearBlade, use the code in this reposit
 
 ## Setting up the gCloud Client  
 - Replace the constants in the pubsub-test.go file with your credentials:  
-```USERNAME       = "YOUR_USERNAME"
+```
+	USERNAME       = "YOUR_USERNAME"
 	SYSTEM_KEY     = "YOUR_SYSTEM_KEY"
 	SYSTEM_SECRET  = "YOUR_SYSTEM_SECRET"
 	PASSWORD       = "YOUR_PASSWORD"
@@ -18,7 +19,7 @@ To integrate Google Cloud's PubSub with ClearBlade, use the code in this reposit
 	MESSAGING_URL  = "MESSAGING_URL"
 	PROJECT_ID     = "YOUR_PROJECT_ID"
 	JSON_FILE_PATH = "YOUR_FILE_PATH"
-	```  
+```    
 - Do a ```go get```. This will donload all the dependencies for the client  
 - Do a ```go build``` to build the client executable  
 - Execute the client using ```./executable_name```  
