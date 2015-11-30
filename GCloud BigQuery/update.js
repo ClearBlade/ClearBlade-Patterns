@@ -3,7 +3,7 @@ var datasetID = req.params.datasetID;
 var requestBody = req.params.body;
 
 var options = {
-	uri: "https://www.googleapis.com/bigquery/v2/projects/projectId/datasets/datasetId",
+	uri: "https://www.googleapis.com/bigquery/v2/projects/" + projectID + "/datasets/" + datasetID,
 	body: requestBody
 }
 
