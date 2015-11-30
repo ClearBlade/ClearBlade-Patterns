@@ -59,8 +59,10 @@
 - Required parameters for update.js are project ID, dataset ID and request body  
 - Request body format should be as follows:  
 ```
+{
 "datasetReference": {
     "datasetId": string,
     "projectId": string
-  }  
+  }
+  } 
  ``` 
