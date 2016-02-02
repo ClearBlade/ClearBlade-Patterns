@@ -3,10 +3,12 @@ function SendMail(req, resp){
     function sendMail(){
         var options = {
             auth: {
+                // Drop in YOUR_API_KEY
                 user: "api",
-                pass : "your_key"
+                pass : "YOUR_API_KEY"
             },
-            uri : "https://api.mailgun.net/v3/your_domain/messages",
+            // Drop in YOUR_DOMAIN
+            uri : "https://api.mailgun.net/v3/YOUR_DOMAIN/messages",
             qs: {
                 "from": "Mailgun Sandbox <mailgun@sandboxaefcf6628e5f4e65b5ccd5b1362b4ee7.mailgun.org>",
                 "to": "foo <xyz@foo.com>",
