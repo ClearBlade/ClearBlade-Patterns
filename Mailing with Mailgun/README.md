@@ -1,8 +1,10 @@
-# Send mails using Mailgun and ClearBlade 
+# Overview
+This repository allows you to send e-mails with ClearBlade via the Mailgun API, which uses the HTTP Protocol. You can choose to create a new domain for your outgoing e-mails, or use the mailgun domain. Sample code to send an e-mail is given in **SendMail.js**.
 
--The mailgun api allows to send email using http. We can either use mailgun domain to send emails, or create our own domain.
-Sample code to send mail is given in SendMail.js
+# Usage
+Log into your Mailgun account, and view the Domain tabs to find the following values:
+>1. Replace **YOUR_API_KEY** with Mailgun API key
+>2. Replace **YOUR_DOMAIN** with your Mailgun Domain
 
--Replace api key with your key.
-
--Go to https://documentation.mailgun.com/quickstart.html and signup for mailgun account
+# Further Documentation
+https://documentation.mailgun.com/quickstart.html
