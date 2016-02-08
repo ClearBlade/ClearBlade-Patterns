@@ -1,12 +1,18 @@
-# Pattern for generating reset token when user wants to change password
+# Overview
 
-- This service can be executed only by the user who has admin priviledges
+This pattern generates a new user token, which can be used, alongside a dedicated collection, to enable the forgot password feature.
 
-- Email of the user who wants to change his password should be given as parameter
-- A reset collection should be created that has admin rights
-- If the user exists in user table, reset token will be generated and put in reset collection
+# Usage
+
+>1. Import ClearBlade and Mailer libraries
+>2. Replace <COLLECTION_NAME> with the name of a new collection dedicated to storing Tokens
+>3. Hard-code admin credentials
+>4. Send e-mail with token to user's email
+
+- This service can be executed only by the user who has admin priviledges. 
+
+A non-admin User cannot ask for his or her own forgot password token.
+
 - Reset token will be mailed to user which can be used to change password
 
-- The sample code is given in ForgotPassword.js
-- ClearBlade and Mailer libraries need to be imported
-- Edit the credentials as indicated in sample code
+What does a user do with this token? It's missing the second part of the feature

@@ -1,3 +1,5 @@
+// Email is required as an input parameter
+
 function ForgotPassword(req, resp){
     
     initClearBlade();
