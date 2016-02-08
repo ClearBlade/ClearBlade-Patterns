@@ -10,5 +10,5 @@ This ClearBlade Patterns repository contains various ways to integrate and use e
 
 # Further Documentation
 
-Detailed documentation can be found at:
+Tutorials and more detailed documentation can be found at:
 http://docs.clearblade.com/v/2/
