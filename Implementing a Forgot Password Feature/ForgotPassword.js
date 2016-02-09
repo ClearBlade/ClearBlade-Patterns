@@ -1,3 +1,5 @@
+// Email is required as an input parameter
+
 function ForgotPassword(req, resp){
     
     initClearBlade();
@@ -11,7 +13,7 @@ function ForgotPassword(req, resp){
         else {
             var resetToken = Math.floor((Math.random() * 1000000) + 1);
             var d = new Date();
-            var collection = ClearBlade.Collection('collection_ID'); // reset collection has only admin perms
+            var collection = ClearBlade.Collection({ collectionName: <COLLECTION_NAME> }); // reset collection has only admin perms
             
             var cb = function(err,result) {
                 if(err) {
