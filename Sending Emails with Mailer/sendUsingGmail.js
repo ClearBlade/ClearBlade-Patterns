@@ -6,17 +6,17 @@ function sendMailGmail(req, resp){
     
     function sendEmail(requestObj){
         transport.sendMail({
-            from: "your_gmail_id",
-            password:"your_password",
-            to: "receiver_email",
-            subject: "Test subject",
+            from: <GMAIL_USERNAME>,
+            password:<GMAIL_PASSWORD>,
+            to: <RECEIVER_EMAIL>,
+            subject: "Subject",
             text: "Hi. How are you doing today?"
         }, function(error, response){
             transport.close();
             if(error){
                 resp.error(error);
             }else{
-                resp.success("Thank you "+req.params.firstName+" "+req.params.lastName+".  Your request has been submitted");
+                resp.success("Thank you! Your request has been submitted");
             }
         });
     }
