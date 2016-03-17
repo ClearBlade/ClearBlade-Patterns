@@ -1,4 +1,4 @@
-#Integration wtih Impinj ItemsSense
+#Integration wtih Impinj ItemSense
 This ClearBlade pattern provides integration and sample code for integration with Impinj ItemSense.  
 
 **About ItemSense** - ItemSense is a software platform that aggregates and transforms torrents of raw RAIN RFID data into real-time, business-driven Item Intelligence.  [API Docs](http://developer.impinj.com/itemsense/docs/api/)
