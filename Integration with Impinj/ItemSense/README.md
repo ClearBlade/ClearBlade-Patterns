@@ -27,3 +27,6 @@ The items api are available with the attached Library code.
     ...
 
 ```
+
+
+TODO: AMQP to MQTT binding for message queue interactions
