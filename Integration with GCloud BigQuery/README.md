@@ -12,6 +12,27 @@ In order to use the APIs given below, you need to first authenticate with Google
 - Copy and paste the code in get.js and hit __Save__  
 - Required parameters for get.js are token, project ID and dataset ID  
 
+## InsertAll
+- Create a new Code Service and require the __http__ library  
+- Copy and paste the code in insertAll.js and hit __Save__  
+- Required parameters for insert.js are token, project ID, datasetID, tableID and request body
+- Enter the required fileds you wish to add to your BigQuery table in the JSON Array of the POST body as follows:
+```
+{
+  "rows": 
+  [
+    {
+      "json": 
+      {
+        "column1": "value",
+        "column2": "value"
+      }
+    }
+  ]
+} 
+```  
+ 
+
 ## Insert    
 - Create a new Code Service and require the __http__ library  
 - Copy and paste the code in insert.js and hit __Save__  
