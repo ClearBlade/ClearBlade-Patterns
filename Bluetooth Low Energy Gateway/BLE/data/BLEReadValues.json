@@ -1,0 +1,34 @@
+{
+    "appID": "e88dc4f50ab28be689f990fbc229",
+    "collectionID": "ea98c4f50acafafab6d6abafb22e",
+    "items": [],
+    "name": "BLEReadValues",
+    "permissions": {},
+    "schema": [
+        {
+            "ColumnName": "item_id",
+            "ColumnType": "uuid",
+            "PK": true
+        },
+        {
+            "ColumnName": "gateway_mac",
+            "ColumnType": "string",
+            "PK": false
+        },
+        {
+            "ColumnName": "ble_device_mac",
+            "ColumnType": "string",
+            "PK": false
+        },
+        {
+            "ColumnName": "ble_device_type",
+            "ColumnType": "string",
+            "PK": false
+        },
+        {
+            "ColumnName": "read_data",
+            "ColumnType": "string",
+            "PK": false
+        }
+    ]
+}

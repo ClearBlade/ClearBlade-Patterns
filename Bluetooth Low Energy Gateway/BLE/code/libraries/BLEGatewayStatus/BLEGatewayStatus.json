@@ -1,0 +1,8 @@
+{
+    "api": "",
+    "dependencies": "",
+    "description": "",
+    "name": "BLEGatewayStatus",
+    "version": 2,
+    "visibility": "system"
+}

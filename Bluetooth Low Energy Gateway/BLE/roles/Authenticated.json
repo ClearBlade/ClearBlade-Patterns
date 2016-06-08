@@ -1,0 +1,25 @@
+{
+    "Description": "Default role that is applied to all authenticated users",
+    "ID": "Authenticated",
+    "Name": "Authenticated",
+    "Permissions": {
+        "CodeServices": [
+            {
+                "Level": 1,
+                "Name": "BLE",
+                "SystemKey": "e88dc4f50ab28be689f990fbc229"
+            }
+        ],
+        "Collections": [],
+        "MsgHistory": {
+            "Level": 0
+        },
+        "Push": {
+            "Level": 0
+        },
+        "Topics": [],
+        "UsersList": {
+            "Level": 0
+        }
+    }
+}
