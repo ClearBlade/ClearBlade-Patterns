@@ -1,0 +1,8 @@
+{
+    "api": "",
+    "dependencies": "IEEE_Frame_Format",
+    "description": "",
+    "name": "Parse_IEEE_Frame",
+    "version": 15,
+    "visibility": "system"
+}

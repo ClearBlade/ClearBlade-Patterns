@@ -1,0 +1,19 @@
+{
+    "Description": "Default role that is applied to all unauthenticated users",
+    "ID": "Anonymous",
+    "Name": "Anonymous",
+    "Permissions": {
+        "CodeServices": null,
+        "Collections": null,
+        "MsgHistory": {
+            "Level": 0
+        },
+        "Push": {
+            "Level": 0
+        },
+        "Topics": null,
+        "UsersList": {
+            "Level": 0
+        }
+    }
+}

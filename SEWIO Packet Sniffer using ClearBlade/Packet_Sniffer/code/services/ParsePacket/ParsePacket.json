@@ -1,0 +1,12 @@
+{
+    "current_version": 88,
+    "dependencies": "ZEP_Format,ZEP_Sizes,log,Get_Hex_Array,Parse_ZEP_Header,Helper_Functions,Parse_IEEE_Frame,IEEE_Frame_Format,Zigbee_Network_Layer_Data_Format,Parse_Zigbee_Network_Layer_Data",
+    "logging_enabled": "true",
+    "name": "ParsePacket",
+    "params": [],
+    "permissions": {
+        "Authenticated": 1
+    },
+    "run_user": "",
+    "source": "ParsePacket.js"
+}

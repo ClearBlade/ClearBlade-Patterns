@@ -1,0 +1,25 @@
+{
+    "Description": "Default role that is applied to all authenticated users",
+    "ID": "Authenticated",
+    "Name": "Authenticated",
+    "Permissions": {
+        "CodeServices": [
+            {
+                "Level": 1,
+                "Name": "ParsePacket",
+                "SystemKey": "c8bdc0f60ad0ddd88c8da2e7b6e701"
+            }
+        ],
+        "Collections": null,
+        "MsgHistory": {
+            "Level": 0
+        },
+        "Push": {
+            "Level": 0
+        },
+        "Topics": null,
+        "UsersList": {
+            "Level": 0
+        }
+    }
+}

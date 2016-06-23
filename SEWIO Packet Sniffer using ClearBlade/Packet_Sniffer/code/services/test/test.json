@@ -1,0 +1,10 @@
+{
+    "current_version": 25,
+    "dependencies": "log",
+    "logging_enabled": "true",
+    "name": "test",
+    "params": [],
+    "permissions": {},
+    "run_user": "",
+    "source": "test.js"
+}
