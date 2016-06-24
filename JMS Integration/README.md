@@ -1,4 +1,4 @@
-# Java Messaging Service (JMS) integration for ClearBlade
+# Java Message Service (JMS) integration for ClearBlade
 
 ## Importing project in Eclipse
 - Open Eclipse and go to File->Import and select __Existing Maven Project__
