@@ -1,4 +1,15 @@
+/*
+
+1. Go To Settings > Requires > Add `http` and `ClearBlade`
+2. Change `TwilioSMS` below to the name of your particular service
+
+*/
+
 function TwilioSMS(req, resp){
+    
+    ClearBlade.init({request:req});
+    sendSMS();
+
     function sendSMS(){
         var options = {
         "auth":{
@@ -19,8 +30,8 @@ function TwilioSMS(req, resp){
     function sendSMS(){
         var options = {
         "auth":{
-            user: fffffffffffffffffffffffff477ddf,
-            pass : fffffffffffffffffffffffed2ef55de
+            user: "fffffffffffffffffffffffff477ddf",
+            pass : "fffffffffffffffffffffffed2ef55de"
         },
         uri : "https://api.twilio.com/2010-04-01/Accounts/fffffffffffffffffffffffff477ddf/SMS/Messages.json",
         "body":{
@@ -41,7 +52,4 @@ function TwilioSMS(req, resp){
             }
         });   
     }
-    
-    ClearBlade.init({request:req});
-    sendSMS();
 }
