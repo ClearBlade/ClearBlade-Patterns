@@ -37,7 +37,7 @@ function TwilioSMS(req, resp){
         "body":{
             "Body" : "Your friend says hi!",
             "To" : "(+1 555-555-5555)",
-            "From": "<+1 777-777-7777>"
+            "From": "(+1 777-777-7777)"
         },
         "form":true
     };
