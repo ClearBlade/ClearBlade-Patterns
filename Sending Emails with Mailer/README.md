@@ -1,7 +1,13 @@
-# Send mails using ClearBlade mailer library
+# Send E-Mails using ClearBlade's Mailer library
 
-- The clearblade mailer library allows you to send emails using your gmail id and password. 
+## Overview
 
-- The sample code service is sendUsingGmail.js
+This pattern shows how to send an e-mail from your Gmail account. 
 
-- Just enter your username and password in the sample code service provided and start sending emails.
+## Usage
+
+>1. Replace `<GMAIL_USERNAME>`, `<GMAIL_PASSWORD>`, and `<RECEIVER_EMAIL>`.
+>2. Send an E-Mail via ClearBlade
+>3. Log into Gmail to allow the new device to send emails on your behalf.
+
+## Further Documentation

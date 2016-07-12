@@ -7,7 +7,7 @@ function getAWSAccess(req, resp){
                 resp.success(data);
             }
         }
-        var query = ClearBlade.Query({'collectionID': 'ccd5d7e00ae096f1c2afafc8c9ae01'});
+        var query = ClearBlade.Query({'collectionName': <COLLECTION_NAME>});
         query.fetch(callback);
     }
     
