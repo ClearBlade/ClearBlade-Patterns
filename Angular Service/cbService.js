@@ -7,8 +7,8 @@ angular.module(app_name)
 		var deferred = $q.defer();
 
 		var initOptions = {
-			systemKey: "KEY",
-			systemSecret: "SECRET",
+			systemKey: <SYSTEM_KEY>,
+			systemSecret: <SYSTEM_SECRET>,
 			URI: "https://platform.clearblade.com",
 
 			callback: function (err, body) {
