@@ -1,14 +1,31 @@
 function SendMail(req, resp){
     
+    var initCallback = function(err, response) {
+        if (err) {
+            resp.error(response);
+        }
+    };
+    var initOptions = {
+        systemKey: req.systemKey,
+        systemSecret: req.systemSecret,
+        // Insert your USERNAME and PASSWORD
+        email: <USERNAME>,
+        password: <PASSWORD>,
+        callback: initCallback
+    };
+    ClearBlade.init(initOptions);
+
+    sendMail()
+
     function sendMail(){
         var options = {
             auth: {
-                // Drop in YOUR_API_KEY
+                // User is the literal string "api"
                 user: "api",
-                pass : "YOUR_API_KEY"
+                // Insert your API_KEY
+                pass : <API_KEY>
             },
-            // Drop in YOUR_DOMAIN
-            uri : "https://api.mailgun.net/v3/YOUR_DOMAIN/messages",
+            uri : "https://api.mailgun.net/v3/<YOUR_DOMAIN>/messages",
             qs: {
                 "from": "Mailgun Sandbox <mailgun@sandboxaefcf6628e5f4e65b5ccd5b1362b4ee7.mailgun.org>",
                 "to": "foo <xyz@foo.com>",
@@ -27,23 +44,4 @@ function SendMail(req, resp){
             }
         });   
     }
-    
-    function initClearBlade() {
-        var initCallback = function(err, response) {
-            if (err) {
-                resp.error(response);
-            }
-        };
-        var initOptions = {
-            systemKey: req.systemKey,
-            systemSecret: req.systemSecret,
-            email: "your_user",
-            password: "your_password",
-            callback: initCallback
-        };
-        ClearBlade.init(initOptions);
-    }
-    
-    initClearBlade();
-    sendMail();
 }
