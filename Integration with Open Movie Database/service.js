@@ -1,4 +1,4 @@
-function imdbPattern(req, resp){
+function fetchMovieData(req, resp){
     // This is an example movie title
     var movieTitle = "Reservoir Dogs";
     
@@ -7,9 +7,9 @@ function imdbPattern(req, resp){
     // then retrieve it with the following line
     // var movieTitle = req.params.movieTitle;
     
-    callImdb(movieTitle)
+    callOmdb(movieTitle)
     
-    function callImdb(title){
+    function callOmdb(title){
         
         // Make an XHR Request to OMDB's API
         var options = {
