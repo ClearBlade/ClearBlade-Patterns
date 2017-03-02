@@ -1,9 +1,12 @@
 {
-    "appID": "e88dc4f50ab28be689f990fbc229",
-    "collectionID": "f897c4f50a9291f5d5b7d4f1ecdd01",
+    "app_id": "c2e1a38b0be8df8a86fdf0858bd101",
+    "collection_id": "c2e1a38b0be884d29cf694e9f669",
     "items": [],
     "name": "BLEDevice",
-    "permissions": {},
+    "permissions": {
+        "Administrator": 15,
+        "Authenticated": 15
+    },
     "schema": [
         {
             "ColumnName": "item_id",

@@ -55,10 +55,13 @@ function BLEDeviceStatus(bluetoothMac, message, resp) {
        });
     };
     
+        log("Before query");
+        log(bluetoothMac);
      var query = ClearBlade.Query({collectionName: "BLEGateway"});
         query.equalTo("bluetooth_mac", bluetoothMac); // Check if gateway exists in the collection
         query.fetch(function(err, data) {
             if(err) {
+                log(data);
                 resp.error({error: true, result: data});
             } else {
                 log("Checking gateway existence");

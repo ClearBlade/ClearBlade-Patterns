@@ -30,6 +30,7 @@ function BLE(req, resp){
     
     log("Processing Topic: " + topicEnd);
     if((topicEnd !== "executed") && (topicEnd !== "messages")) {
+        log("Here");
         ProcessTopic(topicEnd, mac, message, resp);
     }
 }

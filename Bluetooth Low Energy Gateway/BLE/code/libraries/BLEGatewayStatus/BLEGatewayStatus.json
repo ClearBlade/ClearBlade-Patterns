@@ -3,6 +3,6 @@
     "dependencies": "",
     "description": "",
     "name": "BLEGatewayStatus",
-    "version": 2,
+    "version": 1,
     "visibility": "system"
 }

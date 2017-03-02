@@ -8,7 +8,7 @@
         "visibility": true
     },
     "key_value_pairs": {
-        "topic": "ble/#"
+        "topic": "ble/f4:0f:24:22:89:cd/BLEDeviceStatus"
     },
     "name": "BLEPublish",
     "service_name": "BLE"
