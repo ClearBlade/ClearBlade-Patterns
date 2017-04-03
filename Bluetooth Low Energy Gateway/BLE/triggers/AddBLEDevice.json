@@ -8,8 +8,8 @@
         "visibility": true
     },
     "key_value_pairs": {
-        "topic": "ble/#"
+        "topic": "addBLEdevice"
     },
-    "name": "BLEPublish",
-    "service_name": "BLE"
+    "name": "AddBLEDevice",
+    "service_name": "AddNewBLEDevice"
 }

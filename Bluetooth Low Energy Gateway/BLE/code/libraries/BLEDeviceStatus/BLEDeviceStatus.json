@@ -3,6 +3,6 @@
     "dependencies": "",
     "description": "",
     "name": "BLEDeviceStatus",
-    "version": 8,
+    "version": 9,
     "visibility": "system"
 }

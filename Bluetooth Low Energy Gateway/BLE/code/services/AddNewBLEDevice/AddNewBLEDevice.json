@@ -1,5 +1,5 @@
 {
-    "current_version": 29,
+    "current_version": 30,
     "dependencies": "clearblade,log",
     "logging_enabled": "true",
     "name": "AddNewBLEDevice",

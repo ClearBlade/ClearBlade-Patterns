@@ -32,6 +32,11 @@
             "ColumnName": "device_type",
             "ColumnType": "string",
             "PK": false
+        },
+        {
+            "ColumnName": "device_addr_type",
+            "ColumnType": "string",
+            "PK": false
         }
     ]
 }

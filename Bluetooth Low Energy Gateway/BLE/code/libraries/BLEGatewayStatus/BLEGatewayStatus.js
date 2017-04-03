@@ -7,9 +7,25 @@ function BLEGatewayStatus(deviceID, message, resp) {
                 resp.error({error: true, result: data});
             } else {
                 var gateway = data.DATA;
-                if(gateway.length === 0) { // No gateway found in collection
+                if(gateway.length === 0) { // Gateway not found in collection, create it
                     log("No gateway found in collection");
-                    resp.success({error: true, result: "No gateway found"});
+                    
+                    var newGateway = {
+                        bluetooth_mac: deviceID,
+                        status: message
+                    };
+                    
+                    var callback = function (err, data) {
+                        if (err) {
+                            resp.success({error: true, result: "Error creating new gateway: " + JSON.stringify(data)});
+                        } else {
+        	                resp.success(data);
+                        }
+                    };
+                    
+                    log("Adding gateway to collection")
+                    var col = ClearBlade.Collection({collectionName: "BLEGateway" });
+                    col.create(newGateway, callback);
                 } else { // Gateway found
                     var changes = {
                         status: message // Update gateway status
