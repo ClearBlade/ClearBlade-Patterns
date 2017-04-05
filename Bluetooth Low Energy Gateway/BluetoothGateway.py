@@ -128,18 +128,13 @@ class BluetoothGateway:
                 print "Gateway status set to online"
 
         def BleCommandReceived(self, client, obj, message):
-                print "BleComand message type", type(message)
-                print "Message contents = ", message
                 arrivedMessageJSON = message.payload
-
-                print "message payload = ", arrivedMessageJSON
 
                 parsedMessage = {}
                 try:
                         parsedMessage = json.loads(arrivedMessageJSON)
                 except:
                         print "Invalid JSON received in BTLE command"
-                        print arrivedMessageJSON
                         print(sys.exc_info())
                         self.PublishError("Invalid JSON received in BTLE command")
 
