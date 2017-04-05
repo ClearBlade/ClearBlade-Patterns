@@ -10,7 +10,7 @@ from bluepy.btle import Scanner, ScanEntry, DefaultDelegate, BTLEException
 
 class BluetoothGateway:
         connectedBLEDevices = {}
-        
+
         def __init__(self, credentials):
                 self.credentials = credentials
                 self.scanner = None
@@ -34,7 +34,7 @@ class BluetoothGateway:
                 #print "\nSubscribing to topic: ble/" + self.gwBTMac + "/BLECommands"
                 self.mqtt.SubscribeToTopic("ble/" + self.gwBTMac + "/BLECommands", self.BleCommandReceived)
 
-                
+
                 #Publish the gateway status message
                 #print "Publishing topic: " + "ble/" + self.gwBTMac + "/BLEGatewayStatus"
                 self.PublishGatewayOnlineEvent()
@@ -47,7 +47,7 @@ class BluetoothGateway:
                 try:
                         while True:
                                 self.reconcileDevices()
-                                
+
                                 #Scan for devices every two minutes
                                 self.ScanForDevices()
                                 time.sleep(self.credentials['scanInterval'])
@@ -99,7 +99,7 @@ class BluetoothGateway:
 
                 #devices will contain an array of ScanEntry objects
                 devices = self.scanner.scan(5)
-                
+
         def PublishMessage(self, message, messageType, callback):
                 if messageType == "addBLEdevice":
                         self.mqtt.PublishTopic(messageType, message, callback)
@@ -108,72 +108,98 @@ class BluetoothGateway:
                         self.mqtt.PublishTopic(topic, message, callback)
 
         def PublishGatewayOnlineEvent(self):
-                messageToPublish = "{\"gatewayAddress\":\"" + self.gwBTMac + "\", \"status\": \"Online\"}"
-                #self.PublishMessage(messageToPublish, "BLEGatewayStatus", self.OnStatusPublished)
-                self.PublishMessage(messageToPublish, "BLEGatewayStatus", None)
+                messageToPublish = {}
+                messageToPublish["gatewayAddress"] = self.gwBTMac
+                messageToPublish["status"] = "Online"
+
+                self.PublishMessage(json.dumps(messageToPublish), "BLEGatewayStatus", None)
 
         def PublishGatewayOfflineEvent(self):
-                messageToPublish = "{\"gatewayAddress\":\"" + self.gwBTMac + "\", \"status\": \"Offline\"}"
-                self.PublishMessage(messageToPublish, "/BLEGatewayStatus", None)
+                messageToPublish = {}
+                messageToPublish["gatewayAddress"] = self.gwBTMac
+                messageToPublish["status"] = "Offline"
 
-        def PublishGatewayOfflineEvent(self):
-                messageToPublish = "{\"gatewayAddress\":\"" + self.gwBTMac + "\", \"status\": \"Offline\"}"
-                self.PublishMessage(messageToPublish, "/BLEDeviceStatus", None)
+                self.PublishMessage(json.dumps(messageToPublish), "/BLEGatewayStatus", None)
 
         def PublishError(self, error):
                 self.PublishMessage(error, "BLEErrors", None)
 
         def OnStatusPublished(self, client, userdata, mid):
-                print "Gateway status set to online"        
+                print "Gateway status set to online"
 
         def BleCommandReceived(self, client, obj, message):
+                print "BleComand message type", type(message)
+                print "Message contents = ", message
                 arrivedMessageJSON = message.payload
 
+                print "message payload = ", arrivedMessageJSON
+
+                parsedMessage = {}
                 try:
                         parsedMessage = json.loads(arrivedMessageJSON)
-                        if parsedMessage['command'] == 'connect':
-                                deviceAddress = parsedMessage['deviceAddress']
-                                deviceType = parsedMessage['deviceType']
-                                deviceAddrType = parsedMessage['deviceAddrType']
-                                try:
-                                        #If the device already exists, use the existing peripheral instance
-                                        # and re-read the data values
-                                        if self.connectedBLEDevices.get(deviceAddress) == None:
-                                                print "Creating new device"
-                                                peripheral = BluetoothLE(deviceAddress, deviceType, deviceAddrType, self)
-                                                device = {}
-                                                device['peripheral'] = peripheral
-                                                device['scanned'] = True
-                                                self.connectedBLEDevices[deviceAddress] = device
-                                        else:
-                                                print "Connecting to existing device"
-                                                self.connectedBLEDevices[deviceAddress]['scanned'] = True
-                                                self.connectedBLEDevices[deviceAddress]['peripheral'].ConnectToBLEDevice(False)
-
-                                except BTLEException as be:
-                                        print("BTLEException: " + str(be))
-                                        self.PublishError("BTLEException: Code = " + str(be.code) + ", Message = " + be.message)
-                                except:
-                                        print(sys.exc_info())
-                                        print("Could not connect to " + deviceType)
-                                        self.PublishError("Could not connect to " + deviceType)
-                        elif parsedMessage['command'] == 'write':
-                                writeDeviceAddress = parsedMessage['deviceAddress']
-                                if (writeDeviceAddress in self.connectedBLEDevices) == True:
-                                        try:
-                                                self.connectedBLEDevices[writeDeviceAddress]['peripheral'].WriteValue(parsedMessage['data'], parsedMessage['uuid'])
-                                        except:
-                                                print("Error writing to BLE device" + deviceAddress)
-                                                self.PublishError("Error writing to BLE device " + deviceAddress)
-                                else:
-                                        print(writeDeviceAddress + ": No such device found in device dictionary. Please connect the device first and then try again")
-                                        self.PublishError(writeDeviceAddress + \
-                                                ": No such device found in device dictionary. Please connect the device first and then try again")
                 except:
                         print "Invalid JSON received in BTLE command"
                         print arrivedMessageJSON
                         print(sys.exc_info())
                         self.PublishError("Invalid JSON received in BTLE command")
+
+                deviceAddress = parsedMessage['deviceAddress']
+                if parsedMessage['command'] == 'connect':
+                        deviceType = parsedMessage['deviceType']
+                        deviceAddrType = parsedMessage['deviceAddrType']
+                        try:
+                                #If the device already exists, use the existing peripheral instance
+                                # and re-read the data values
+                                if self.connectedBLEDevices.get(deviceAddress) == None:
+                                        print "Creating new device"
+                                        peripheral = BluetoothLE(deviceAddress, deviceType, deviceAddrType, self)
+                                        device = {}
+                                        device['peripheral'] = peripheral
+                                        device['scanned'] = True
+                                        self.connectedBLEDevices[deviceAddress] = device
+                                else:
+                                        print "Connecting to existing device"
+                                        self.connectedBLEDevices[deviceAddress]['scanned'] = True
+                                        self.connectedBLEDevices[deviceAddress]['peripheral'].ConnectToBLEDevice(False)
+
+                        except BTLEException as be:
+                                print("BTLEException: " + str(be))
+                                self.PublishError("BTLEException: Code = " + str(be.code) + ", Message = " + be.message)
+                        except:
+                                print(sys.exc_info())
+                                print("Could not connect to " + deviceType)
+                                self.PublishError("Could not connect to " + deviceType)
+                elif parsedMessage['command'] == 'read' or parsedMessage['command'] == 'readAll':
+                        readDeviceAddress = parsedMessage['deviceAddress']
+                        if (readDeviceAddress in self.connectedBLEDevices) == True:
+                                try:
+                                        if parsedMessage['command'] == 'read':
+                                                self.connectedBLEDevices[readDeviceAddress]['peripheral'].ReadValue(parsedMessage['uuid'])
+                                        else:
+                                                self.connectedBLEDevices[readDeviceAddress]['peripheral'].ReadLoop()
+
+                                except:
+                                        print("Error reading from BLE device" + readDeviceAddress)
+                                        print(sys.exc_info())
+                                        self.PublishError("Error reading from BLE device " + readDeviceAddress)
+                        else:
+                                print(readDeviceAddress + ": No such device found. Please connect the device first and then try again")
+                                self.PublishError(readDeviceAddress + \
+                                        ": No such device found. Please connect the device first and then try again")
+                elif parsedMessage['command'] == 'write':
+                        writeDeviceAddress = parsedMessage['deviceAddress']
+                        if (writeDeviceAddress in self.connectedBLEDevices) == True:
+                                try:
+                                        self.connectedBLEDevices[writeDeviceAddress]['peripheral'].WriteValue(parsedMessage['data'], parsedMessage['uuid'])
+                                except:
+                                        print("Error writing to BLE device" + deviceAddress)
+                                        print(sys.exc_info())
+                                        self.PublishError("Error writing to BLE device " + deviceAddress)
+                        else:
+                                print(writeDeviceAddress + ": No such device found. Please connect the device first and then try again")
+                                self.PublishError(writeDeviceAddress + \
+                                        ": No such device found. Please connect the device first and then try again")
+
 
 #This class is used by the btle.Scanner class. The class provides methods
 #invoked by the scanner when device related events occur
@@ -219,5 +245,5 @@ class ScanDelegate(DefaultDelegate):
                 device["deviceType"] = deviceType
                 device["deviceAddrType"] = addrType
                 device["gatewayAddress"] = self.gateway.gwBTMac
-
+                
                 self.gateway.PublishMessage(json.dumps(device), "addBLEdevice", None)
