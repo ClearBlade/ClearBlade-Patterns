@@ -199,7 +199,7 @@ function CoAP(){
     }
 
     function mapBackReqType(reqType){
-        switch(reqType.replace(/[- ]/g,"")){
+        switch(reqType.replace(/[\- ]/g,"")){
             case "CONFIRMABLE":
                 return 0;
             case "NONCONFIRMABLE":
@@ -235,7 +235,7 @@ function CoAP(){
     }
 
     function mapBackOption(option){
-        var op = option.replace(/[- ]/g,"").toUpperCase();
+        var op = option.replace(/[\- ]/g,"").toUpperCase();
         switch(op){
             case "IFMATCH":
                 return 1;
@@ -302,7 +302,7 @@ function CoAP(){
     }
 
     function mapBackFormat(format){
-        switch(format.replace(/[;-=/]/g,"").toUpperCase()){
+        switch(format.replace(/[;\-=/]/g,"").toUpperCase()){
             case "TEXTPLAINCHARSETUTF8":
             case "TEXTPLAIN":
                 return 0;
@@ -484,7 +484,7 @@ function CoAP(){
     function buildCoAP(details){
         var reqType, command, messageID, token, options;
         for(var deet in details){
-            switch(deet.replace(/[-_ ]/g,"").toUpperCase()){
+            switch(deet.replace(/[\-_ ]/g,"").toUpperCase()){
                 case "REQUESTTYPE":
                     reqType = mapBackReqType(details[deet].toUpperCase());
                     break;
