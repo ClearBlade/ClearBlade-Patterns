@@ -48,22 +48,18 @@ function CoAP(){
     }
     
     function mapRequest(reqType){
-        ret = "Invalid request type";
         switch(reqType){
             case 0:
-                ret = "Confirmable";
-                break;
+                return "Confirmable";
             case 1:
-                ret = "Non-confirmable";
-                break;
+                return "Non-confirmable";
             case 2:
-                ret = "Acknowledgement";
-                break;
+                return "Acknowledgement";
             case 3:
-                ret = "Reset";
-                break;
+                return "Reset";
+            default: 
+                return "Invalid request type";
         }
-        return ret;
     }
 
     function mapFormat(formatNum){
@@ -86,7 +82,7 @@ function CoAP(){
     }
     
     function mapCommand(command){
-        ret = [];
+        var ret = [];
         if(command<32){
             ret = ret.concat(["Request"]);
         }else{
@@ -170,12 +166,53 @@ function CoAP(){
                 ret[0] = "Size1";
                 ret[1] = intArrToInt(ret[1]);
                 break;
+            default:
+                ret[1] = {
+                    number: optionNum,
+                    value: optionVal
+                };
+                break;
         }
         return ret;
     }
 
     // BUILDING HELPER FUNCTIONS
     
+    function asciiToIntArr(str){
+        return str.split("").map(function(c){return c.charCodeAt(0)});
+    }
+
+    function hexStringToIntArr(hex){
+        var ret = hex.match(/.{2}/g).map(function(x){return parseInt(x,16)});
+        if(!(typeof ret[0] != 'undefined' && ret[0])){
+            ret.shift();
+        }
+        return ret;
+    } 
+
+    function intToIntArr(messageStr){
+        var hex = parseInt(messageStr).toString(16);
+        if(hex.length%2===1){
+            hex = '0'+hex;
+        }
+        return hexStringToIntArr(hex);
+    }
+
+    function mapBackReqType(reqType){
+        switch(reqType.replace(/[- ]/g,"")){
+            case "CONFIRMABLE":
+                return 0;
+            case "NONCONFIRMABLE":
+                return 1;
+            case "ACKNOWLEDGEMENT":
+                return 2;
+            case "RESET":
+                return 3;
+            default: 
+                return -1;
+        }
+    }
+
     function mapBackCommand(command){
         switch(command){
             case "0.00":
@@ -197,10 +234,181 @@ function CoAP(){
         }
     }
 
+    function mapBackOption(option){
+        var op = option.replace(/[- ]/g,"").toUpperCase();
+        switch(op){
+            case "IFMATCH":
+                return 1;
+            case "URIHOST":
+                return 3;
+            case "ETAG":
+                return 4;
+            case "IFNONEMATCH":
+                return 5;
+            case "URIPORT":
+                return 7;
+            case "LOCATIONPATH":
+                return 8;
+            case "URIPATH":
+                return 11;
+            case "CONTENTFORMAT":
+                return 12;
+            case "MAXAGE":
+                return 14;
+            case "URIQUERY":
+                return 15;
+            case "ACCEPT":
+                return 17;
+            case "LOCATIONQUERY":
+                return 20;
+            case "PROXYURI":
+                return 35;
+            case "PROXYSCHEME":
+                return 39;
+            case "SIZE1":
+                return 60;
+            case "PAYLOAD": 
+                return -2;
+            default:
+                return -1;
+        }
+    }
+
+    function getOptionDeltas(options){
+        var nums = [];
+        for(var option in options){
+            var num = mapBackOption(option);
+            nums.push({
+                original: num,
+                delta: num,
+                value: options[option]
+            });
+        }
+        nums.sort(function(a,b){
+            return parseInt(a.original) - parseInt(b.original);
+        })
+        if(nums[0].original===-2){
+            nums.push(nums[0]);
+            nums.shift();
+        }
+        for(var i=0;i<nums.length-1;i++){
+            if(nums[i+1].original!==-2){
+                nums[i+1].delta -= nums[i].original;
+            }else{
+                nums[i+1].delta = -2;
+            }
+        }
+        return nums;
+    }
+
+    function mapBackFormat(format){
+        switch(format.replace(/[;-=/]/g,"").toUpperCase()){
+            case "TEXTPLAINCHARSETUTF8":
+            case "TEXTPLAIN":
+                return 0;
+            case "APPLICATIONLINKFORMAT":
+                return 40;
+            case "APPLICATIONXML":
+                return 41;
+            case "APPLICATIONOCTETSTREAM":
+                return 42;
+            case "APPLICATIONEXI":
+                return 47;
+            case "APPLICATIONJSON":
+                return 50;
+            default:
+                return -1;
+        }
+    }
+
+    function convertOptionValues(optionNum, optionVal){
+        switch(optionNum){
+            case 1:
+                return optionVal;
+            case 3:
+                return asciiToIntArr(optionVal);
+            case 4:
+                return optionVal;
+            case 5:
+                return optionVal;
+            case 7:
+                return optionVal;
+            case 8:
+                return asciiToIntArr(optionVal);
+            case 11:
+                return asciiToIntArr(optionVal);
+            case 12:
+                return mapBackFormat(optionVal);
+            case 14:
+                return optionVal;
+            case 15:
+                return asciiToIntArr(optionVal);
+            case 17:
+                return mapBackFormat(optionVal);
+            case 20:
+                return asciiToIntArr(optionVal);
+            case 35:
+                return asciiToIntArr(optionVal);
+            case 39:
+                return asciiToIntArr(optionVal);
+            case 60:
+                return optionVal;
+            case -2:
+                return optionVal;
+            default:
+                return optionVal;
+        }
+    }
+
+    function buildOptionsBuf(ops){
+        var options = getOptionDeltas(ops);
+        var optionsBuf = [];
+        for(var i in options){
+            var option = options[i];
+            var delta = option.delta;
+            var excessDelta = [];
+            var excessLength = [];
+            
+            if(delta===-2){
+                delta = 0xFF; // payload
+            }else if(delta<13){
+                delta = delta<<4;
+            }else if(delta<269){
+                excessDelta.push(delta-13);
+                delta = 13<<4;
+            }else{
+                excessDelta.push((delta-269)>>8);
+                excessDelta.push((delta-269)&0xFF);
+                delta = 14<<4;
+            }
+            var value = convertOptionValues(option.original, option.value);
+            if(value.constructor === Array){
+                if(delta===0xFF){
+                    optionsBuf.push(delta);
+                }else if(value.length<13){
+                    optionsBuf.push(delta|value.length);
+                }else if(value.length<269){
+                    optionsBuf.push(delta|13)
+                    excessLength.push(value.length-13);
+                }else{
+                    optionsBuf.push(delta|14);
+                    excessLength.push((value.length-269)>>8);
+                    excessLength.push((value.length-269)&0xFF);
+                }
+            }else{
+                optionsBuf.push(delta|1);
+            }
+            optionsBuf = optionsBuf.concat(excessDelta).concat(excessLength).concat(value);
+        }
+        return optionsBuf;
+    }
 
     // ACCESSIBLE FUNCTIONS
     
     function parseCoAP(buffer){
+        if(buffer.constructor !== Array){
+            return "Invalid packet. Expected array."
+        }
         var buf = buffer.slice();
         var packet = {}
         var firstByte = splitByte(buf.shift());
@@ -214,8 +422,8 @@ function CoAP(){
             Code: command[1],
             Name: command[2]
         };
-        packet["Message ID"] = intArrToHexString([].concat(buf.splice(0,2)));
-        packet["Token"] = intArrToHexString([].concat(buf.splice(0,tokenLength)));
+        packet["Message ID"] = intArrToHexString([].concat(buf.splice(0,2))).toUpperCase();
+        packet["Token"] = intArrToHexString([].concat(buf.splice(0,tokenLength))).toUpperCase();
         var options = {};
         var prevOptions = 0;
         while(buf.length>0){
@@ -237,17 +445,17 @@ function CoAP(){
                         }
                         break;
                     case 0xE:
-                        delta = parseInt(intArrToHexString([].concat(buf.splice(0,2))),16)-269;
+                        delta = parseInt(intArrToHexString([].concat(buf.splice(0,2))),16)+269;
                         break;
                     case 0xD:
-                        delta = buf.shift()-13;
+                        delta = buf.shift()+13;
                         break;
                     default:
                         delta = optionSplit[0];
                         break;
                 }
                 option = prevOptions+delta;
-                prevOptions += option;
+                prevOptions += delta;
                 switch(len){
                     case 0xF:
                         return{
@@ -255,10 +463,10 @@ function CoAP(){
                             "Details": "Encountered an option length of 15"
                         };
                     case 0xE:
-                        len = parseInt(intArrToHexString([].concat(buf.splice(0,2))),16)-269;
+                        len = parseInt(intArrToHexString([].concat(buf.splice(0,2))),16)+269;
                         break;
                     case 0xD:
-                        len = buf.shift()-13;
+                        len = buf.shift()+13;
                         break;
                     default:
                         break;
@@ -273,40 +481,55 @@ function CoAP(){
         return packet;
     }
 
-    /*
-        {
-          "CoAP Version": 1,
-          "Request Type": "Confirmable",
-          "Command": {
-            "Code": "0.02",
-            "Name": "POST",
-            "Type": "Request"
-          },
-          "Message ID": "0001",
-          "Token": "00",
-          "Options": {
-            "Content-Format": "application/octet-stream",
-            "Payload": [
-              0,
-              255,
-              0,
-              0,
-              0
-            ],
-            "Uri-Path": "rgbclick"
-          }
+    function buildCoAP(details){
+        var reqType, command, messageID, token, options;
+        for(var deet in details){
+            switch(deet.replace(/[-_ ]/g,"").toUpperCase()){
+                case "REQUESTTYPE":
+                    reqType = mapBackReqType(details[deet].toUpperCase());
+                    break;
+                case "COMMAND":
+                    command = mapBackCommand(details[deet].toUpperCase());
+                    break;
+                case "MESSAGEID":
+                    messageID = details[deet];
+                    if(typeof parseInt(messageID) != 'undefined' && parseInt(messageID)){
+                        messageID = intToIntArr(messageID);
+                    }else{
+                        messageID = hexStringToIntArr(messageID);
+                    }
+                    if(messageID.length>2){
+                        return "Message ID is too large";
+                    }
+                    if(messageID.length<2){
+                        messageID = [0].concat(messageID);
+                    }
+                    break;
+                case "TOKEN":
+                    token = details[deet];
+                    if(typeof parseInt(token) != 'undefined' && parseInt(token)){
+                        token = intToIntArr(token);
+                    }else{
+                        token = hexStringToIntArr(token);
+                    }
+                    if(token.length>8){
+                        return "Token is too large";
+                    }
+                    break;
+                case "OPTIONS":
+                    options = buildOptionsBuf(details[deet]);
+                    break;
+            }
         }
-     */
-
-    function buildCoAP(options){
-        var reqType = options["Request Type"].toUpperCase();
-        var command = options["Command"].toUpperCase();
-        var messageID = parseInt(options["Message ID"]);
-        var token = parseInt(options["Token"]);
-        log(reqType)
-        log(command+"::"+mapBackCommand(command))
-        log(messageID)
-        log(token)
+        if(   !(typeof reqType!='undefined')
+            ||!(typeof command!='undefined')
+            ||!(typeof messageID!='undefined')
+            ||!(typeof token!='undefined')
+            ){
+            return "Missing required parameter"
+        }
+        var firstByte = ((4 | reqType)<<4)|token.length;
+        return [].concat(firstByte).concat(command).concat(messageID).concat(token).concat(options);
     }
     
     return {
