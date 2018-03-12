@@ -1,9 +1,12 @@
 {
-    "appID": "e88dc4f50ab28be689f990fbc229",
-    "collectionID": "a497c4f50a86b1879ee6a181f6de01",
+    "app_id": "c2e1a38b0be8df8a86fdf0858bd101",
+    "collection_id": "c4e1a38b0b8ad993efe3a1eab8f901",
     "items": [],
     "name": "BLEGateway",
-    "permissions": {},
+    "permissions": {
+        "Administrator": 15,
+        "Authenticated": 15
+    },
     "schema": [
         {
             "ColumnName": "item_id",

@@ -1,10 +1,13 @@
 {
-    "current_version": 3,
+    "current_version": 30,
     "dependencies": "clearblade,log",
     "logging_enabled": "true",
     "name": "AddNewBLEDevice",
     "params": [],
-    "permissions": {},
+    "permissions": {
+        "Administrator": 1,
+        "Authenticated": 1
+    },
     "run_user": "",
     "source": "AddNewBLEDevice.js"
 }

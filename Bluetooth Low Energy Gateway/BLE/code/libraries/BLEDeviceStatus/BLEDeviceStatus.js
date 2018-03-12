@@ -19,7 +19,8 @@ function BLEDeviceStatus(bluetoothMac, message, resp) {
                     gateway_mac: bluetoothMac,
                     ble_device_mac: message.deviceAddress,
                     device_status: message.status,
-                    device_type: message.deviceType
+                    device_type: message.deviceType,
+                    device_addr_type: message.deviceAddrType
                 };
                 log("New item: " + newItem);
                 var collection = ClearBlade.Collection({collectionName: "BLEDevice"}); 
@@ -38,7 +39,8 @@ function BLEDeviceStatus(bluetoothMac, message, resp) {
                     gateway_mac: bluetoothMac,
                     ble_device_mac: message.deviceAddress,
                     device_status: message.status,
-                    device_type: message.deviceType
+                    device_type: message.deviceType,
+                    device_addr_type: message.deviceAddrType
                 };
                 log("Updated item: " + updateItem);
                 nodeQuery.update(updateItem, function(err, data) { 
@@ -55,10 +57,13 @@ function BLEDeviceStatus(bluetoothMac, message, resp) {
        });
     };
     
+        log("Before query");
+        log(bluetoothMac);
      var query = ClearBlade.Query({collectionName: "BLEGateway"});
         query.equalTo("bluetooth_mac", bluetoothMac); // Check if gateway exists in the collection
         query.fetch(function(err, data) {
             if(err) {
+                log(data);
                 resp.error({error: true, result: data});
             } else {
                 log("Checking gateway existence");

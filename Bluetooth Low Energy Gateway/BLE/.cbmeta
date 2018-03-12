@@ -1,6 +1,7 @@
 {
-    "assetRefreshDates": [],
-    "developerEmail": "sanket@clearblade.com",
-    "platformURL": "https://platform.clearblade.com",
-    "token": "kgvVTr6jOyi66IFUnyTt7P--Jt5yngufloXLCgM6ZcXkmNcA-XG22EEBNFZYBDcNYTh7HMptNKqaFPM3"
+    "asset_refresh_dates": [],
+    "developer_email": "trainer@clearblade.com",
+    "messaging_url": "platform.clearblade.com:1883",
+    "platform_url": "https://platform.clearblade.com",
+    "token": "jE_vxJfsQyWD9ENlvE9Ei6xiNqnTAyekv32Zy6M9wmsW81qMKbPs9IPHnjZWyyc2cN_QAQt4TgJi5g_ylQ=="
 }

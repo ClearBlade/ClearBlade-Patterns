@@ -3,6 +3,6 @@
     "dependencies": "BLEGatewayStatus,BLEDeviceStatus,BLEReadData,LogErrors",
     "description": "",
     "name": "ProcessTopic",
-    "version": 3,
+    "version": 1,
     "visibility": "system"
 }

@@ -7,16 +7,55 @@
             {
                 "Level": 1,
                 "Name": "BLE",
-                "SystemKey": "e88dc4f50ab28be689f990fbc229"
+                "SystemKey": "c2e1a38b0be8df8a86fdf0858bd101"
+            },
+            {
+                "Level": 1,
+                "Name": "AddNewBLEDevice",
+                "SystemKey": "c2e1a38b0be8df8a86fdf0858bd101"
             }
         ],
-        "Collections": [],
+        "Collections": [
+            {
+                "Columns": [],
+                "ID": "c2e1a38b0be884d29cf694e9f669",
+                "Items": [],
+                "Level": 15,
+                "Name": "BLEDevice"
+            },
+            {
+                "Columns": [],
+                "ID": "c2e1a38b0bf4f98895b78ca2c38101",
+                "Items": [],
+                "Level": 15,
+                "Name": "BLEErrors"
+            },
+            {
+                "Columns": [],
+                "ID": "c4e1a38b0b8ad993efe3a1eab8f901",
+                "Items": [],
+                "Level": 15,
+                "Name": "BLEGateway"
+            },
+            {
+                "Columns": [],
+                "ID": "c4e1a38b0b9ec7dd8180deeba770",
+                "Items": [],
+                "Level": 15,
+                "Name": "BLEReadValues"
+            }
+        ],
+        "DevicesList": {
+            "Level": 0
+        },
         "MsgHistory": {
             "Level": 0
         },
+        "Portals": [],
         "Push": {
             "Level": 0
         },
+        "SystemServices": null,
         "Topics": [],
         "UsersList": {
             "Level": 0

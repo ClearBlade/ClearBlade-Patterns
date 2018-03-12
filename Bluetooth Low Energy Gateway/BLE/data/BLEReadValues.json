@@ -1,9 +1,12 @@
 {
-    "appID": "e88dc4f50ab28be689f990fbc229",
-    "collectionID": "ea98c4f50acafafab6d6abafb22e",
+    "app_id": "c2e1a38b0be8df8a86fdf0858bd101",
+    "collection_id": "c4e1a38b0b9ec7dd8180deeba770",
     "items": [],
     "name": "BLEReadValues",
-    "permissions": {},
+    "permissions": {
+        "Administrator": 15,
+        "Authenticated": 15
+    },
     "schema": [
         {
             "ColumnName": "item_id",
